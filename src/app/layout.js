@@ -9,13 +9,13 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Ammay Garu — Full-Stack Developer & AI Enthusiast",
+  title: "Bonu Akshaya — Full-Stack Developer & AI Enthusiast",
   description:
-    "Portfolio of Ammay Garu — Full-Stack Developer and AI/ML enthusiast based in Hyderabad, India. Building immersive digital experiences.",
+    "Portfolio of Bonu Akshaya — Full-Stack Developer and AI/ML enthusiast based in Hyderabad, India. Building immersive digital experiences.",
   keywords: ["portfolio", "developer", "AI", "Next.js", "React", "machine learning"],
-  authors: [{ name: "Ammay Garu" }],
+  authors: [{ name: "Bonu Akshaya" }],
   openGraph: {
-    title: "Ammay Garu — Portfolio",
+    title: "Bonu Akshaya — Portfolio",
     description: "Full-Stack Developer & AI Enthusiast",
     type: "website",
   },
