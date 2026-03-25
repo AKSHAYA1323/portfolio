@@ -13,27 +13,43 @@ import Contact      from "@/components/Contact";
 import Footer       from "@/components/Footer";
 
 export default function HomePage() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "dark";
+    const saved = window.localStorage.getItem("portfolio-theme");
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  });
 
-  // Initialise from localStorage or system preference
+  // Keep theme in sync with document and storage.
   useEffect(() => {
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute("data-theme", saved);
-    } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      setTheme("light");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll("main > section, footer.footer"));
+    if (!sections.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("section-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    sections.forEach(section => observer.observe(section));
+
+    return () => observer.disconnect();
   }, []);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("portfolio-theme", next);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import NeuralNetworkBackground from "@/components/NeuralNetworkBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +29,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <NeuralNetworkBackground />
+        <div className="app-shell">{children}</div>
+      </body>
     </html>
   );
 }

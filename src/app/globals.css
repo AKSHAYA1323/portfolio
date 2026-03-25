@@ -90,6 +90,32 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.09), transparent 48%),
+    radial-gradient(circle at 80% 75%, rgba(99, 102, 241, 0.10), transparent 50%);
+}
+
+.neural-network-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+}
+
 img, video { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; font-family: var(--font-base); }
@@ -143,6 +169,35 @@ ul { list-style: none; }
 /* ─── Utility: Section Padding ───────────────────────────── */
 .section {
   padding: var(--sp-sec) 0;
+}
+
+/* Shared reveal animation used across the full one-page layout. */
+main > section,
+footer.footer {
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  filter: blur(4px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease),
+    filter 0.8s var(--ease);
+}
+
+main > section.section-visible,
+footer.footer.section-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > section,
+  footer.footer {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 /* ─── Utility: Gradient Button ───────────────────────────── */
@@ -521,7 +576,7 @@ ul { list-style: none; }
 
 /* ─── About ──────────────────────────────────────────────── */
 .about {
-  background: var(--color-bg);
+  background: transparent;
 }
 
 #about .section-title {
@@ -785,7 +840,7 @@ ul { list-style: none; }
 
 /* ─── Education ──────────────────────────────────────────── */
 .education {
-  background: var(--color-bg);
+  background: transparent;
 }
 
 .education__list {
@@ -990,7 +1045,7 @@ ul { list-style: none; }
 
 /* ─── Certificates ───────────────────────────────────────── */
 .certificates {
-  background: var(--color-bg);
+  background: transparent;
 }
 
 .certificates__grid {
